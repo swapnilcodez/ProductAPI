@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProductAPI</name>
+    </assembly>
+    <members>
+        <member name="M:ProductAPI.Controllers.ProductController.GetAll">
+            <summary>
+            Returns the products list
+            </summary>
+            <returns>List of Products present</returns>
+        </member>
+        <member name="M:ProductAPI.Controllers.ProductController.Add(ProductAPI.Data.Model.Product)">
+            <summary>
+            Saves product in db.
+            </summary>
+            <param name="product"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductAPI.Controllers.ProductController.Update(ProductAPI.Data.Model.Product)">
+            <summary>
+            Update the product in db.
+            </summary>
+            <param name="product"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductAPI.Controllers.ProductController.Delete(System.Int32)">
+            <summary>
+            Delete the product of id 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

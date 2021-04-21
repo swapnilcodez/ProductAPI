@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ProductAPI.Controllers
 {
     [ApiController]
-    [Route("api/[Controller]")]
+    [Route("api/product")]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -19,11 +19,15 @@ namespace ProductAPI.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
+        /// <summary>
+        /// Returns the products list
+        /// </summary>
+        /// <returns>List of Products present</returns>
+        [HttpGet(template: nameof(GetAll))]
         public async Task<IActionResult> GetAll()
         {
             var response = await _productService.GetAll();
-            if(response == null)
+            if (response == null)
             {
                 return NotFound();
             }
@@ -31,25 +35,30 @@ namespace ProductAPI.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Saves product in db.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        [HttpPost(template: nameof(Add))]
         public async Task<IActionResult> Add([FromBody] Product product)
         {
-            if(product == null)
+            if (product == null)
             {
                 return BadRequest("Request body is empty");
             }
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if(product.Id != 0)
+            if (product.Id != 0)
             {
                 return BadRequest($"Product id must be zero.");
             }
 
             var response = await _productService.Add(product);
-            if(response == null)
+            if (response == null)
             {
                 return BadRequest("Oops! something went wrong, try again.");
             }
@@ -57,7 +66,12 @@ namespace ProductAPI.Controllers
             return Ok(response);
         }
 
-        [HttpPut]
+        /// <summary>
+        /// Update the product in db.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        [HttpPut(template: nameof(Update))]
         public async Task<IActionResult> Update([FromBody] Product product)
         {
             if (product == null)
@@ -71,7 +85,7 @@ namespace ProductAPI.Controllers
 
             var productById = await _productService.GetById(product.Id);
 
-            if(productById == null)
+            if (productById == null)
             {
                 return BadRequest($"Product with id:{product.Id} not found");
             }
@@ -85,7 +99,12 @@ namespace ProductAPI.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("id")]
+        /// <summary>
+        /// Delete the product of id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete(template: nameof(Delete))]
         public async Task<IActionResult> Delete(int id)
         {
            

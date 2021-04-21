@@ -57,7 +57,7 @@ namespace ProductAPI.Repositories.Implementation
             {
                 return await _context.Products.ToListAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
