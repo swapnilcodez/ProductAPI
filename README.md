@@ -9,3 +9,5 @@ CRUD WebAPI App with .NET 5.0 and Swagger API documentation.
   1. Clone the project on local directory.
   2. 
   
+### How to Use the Project?
+  
