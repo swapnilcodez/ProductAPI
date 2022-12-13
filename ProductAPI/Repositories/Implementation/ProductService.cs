@@ -9,15 +9,30 @@ using System.Threading.Tasks;
 
 namespace ProductAPI.Repositories.Implementation
 {
+    /// <summary>
+    /// ProductService Implementation
+    /// </summary>
     public class ProductService : IProductService
     {
+        /// <summary>
+        /// _context
+        /// </summary>
         protected ProductDbContext _context;
 
+        /// <summary>
+        /// ProductService
+        /// </summary>
+        /// <param name="context"></param>
         public ProductService(ProductDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public async Task<string> Add(Product product)
         {
             try
@@ -34,15 +49,23 @@ namespace ProductAPI.Repositories.Implementation
 
         }
 
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<string> Delete(int id)
         {
             try
             {
                 var product = await _context.Products.FindAsync(id);
-                _context.Remove(product);
-                await _context.SaveChangesAsync();
-
-                return $"Product deleted successfully";
+                if (product != null)
+                {
+                    _context.Remove(product);
+                    await _context.SaveChangesAsync();
+                    return $"Product deleted successfully";
+                }
+                return $"Product Not Found";
             }
             catch (Exception)
             {
@@ -51,11 +74,19 @@ namespace ProductAPI.Repositories.Implementation
 
         }
 
+        /// <summary>
+        /// GetAll
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Product>> GetAll()
         {
             try
             {
-                return await _context.Products.ToListAsync();
+                var products = await _context.Products.ToListAsync();
+                if (products != null)
+                    return products;
+
+                return new List<Product>();
             }
             catch (Exception ex)
             {
@@ -63,11 +94,20 @@ namespace ProductAPI.Repositories.Implementation
             }
         }
 
+        /// <summary>
+        /// GetById
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Product> GetById(int id)
         {
             try
             {
-                return await _context.Products.Where(p => p.Id == id).FirstOrDefaultAsync();
+                var product = await _context.Products.Where(p => p.Id == id).FirstOrDefaultAsync();
+                if (product != null)
+                    return product;
+
+                return null;
             }
             catch (Exception)
             {
@@ -75,17 +115,25 @@ namespace ProductAPI.Repositories.Implementation
             }
         }
 
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public async Task<string> Update(Product product)
         {
             try
             {
                 var updateProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == product.Id);
-               
-                _context.Entry(updateProduct).CurrentValues.SetValues(product);
 
-                await _context.SaveChangesAsync();
+                if (updateProduct != null)
+                {
+                    _context.Entry(updateProduct).CurrentValues.SetValues(product);
+                    await _context.SaveChangesAsync();
 
-                return $"Product updated successfully";
+                    return $"Product updated successfully";
+                }
+                return $"Product Not found";
             }
             catch (Exception)
             {

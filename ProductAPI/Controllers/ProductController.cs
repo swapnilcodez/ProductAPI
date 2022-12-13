@@ -9,11 +9,19 @@ using System.Threading.Tasks;
 
 namespace ProductAPI.Controllers
 {
+    /// <summary>
+    /// Product API entry point
+    /// </summary>
     [ApiController]
     [Route("api/product")]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+
+        /// <summary>
+        /// ProductController Constructor
+        /// </summary>
+        /// <param name="productService"></param>
         public ProductController(IProductService productService)
         {
             _productService = productService;
