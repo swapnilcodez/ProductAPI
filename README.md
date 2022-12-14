@@ -33,10 +33,10 @@ CRUD WebAPI App with .NET 6 and Swagger API documentation.
   6. Create database with name 'productsdb' in your SQL Server instance and add Server name and database name in secrets.json
   <img width="272" alt="image" src="https://user-images.githubusercontent.com/61865561/207346221-cb85b0ad-c640-4776-8fdd-6d6ec3b60603.png">
 
-  7. Open Package Manager Console 
+  7. Now Open Package Manager Console 
   <img width="470" alt="image" src="https://user-images.githubusercontent.com/61865561/207540884-38af8c0d-a83a-477b-8c39-a535e7ef95a7.png">
 
-  8. Now you need to install Entity Framework Core CLI, so perform below command in Package Manager Console.
+  8. Then you need to install Entity Framework Core CLI, so perform below command in Package Manager Console.
   ```
   dotnet tool install --global dotnet-ef
   ```
